@@ -31,6 +31,7 @@ namespace HandsOnApi
         {
             services
                 .AddMvc()
+                .AddDataAnnotationsLocalization()
                 .AddJsonOptions(options =>
                 {
                     var settings = options.SerializerSettings;

@@ -31,21 +31,60 @@ namespace HandsOnApi.Controllers
         }
 
         [HttpPost]
-        public async Task<bool> Post([FromBody]Employee value)
+        public async Task<IActionResult> Post([FromBody]Employee value)
         {
-            return await this._employeeRepository.InsertAsync(value);
+            if (!ModelState.IsValid)
+            {
+                return this.BadRequest(ModelState);
+            }
+            else
+            {
+                await this._employeeRepository.InsertAsync(value);
+
+                return this.Ok();
+            }
         }
 
         [HttpPut("{id}")]
-        public async Task<bool> Put(string id, [FromBody]Employee value)
+        public async Task<IActionResult> Put(string id, [FromBody]Employee value)
         {
-            return await this._employeeRepository.UpdateAsync(id, value);
+            if (!ModelState.IsValid)
+            {
+                return this.BadRequest(ModelState);
+            }
+            else
+            {
+                var result = await this._employeeRepository.UpdateAsync(id, value);
+                if (result) 
+                {
+                    return this.Ok();
+                }
+                else 
+                {
+                    return this.BadRequest();
+                }
+            }
         }
 
         [HttpDelete("{id}")]
-        public async Task<bool> Delete(string id)
+        public async Task<IActionResult> Delete(string id)
         {
-            return await this._employeeRepository.DeleteAsync(id);
+            if (!ModelState.IsValid)
+            {
+                return this.BadRequest(ModelState);
+            }
+            else
+            {
+                var result = await this._employeeRepository.DeleteAsync(id);
+                if (result) 
+                {
+                    return this.Ok();
+                }
+                else 
+                {
+                    return this.BadRequest();
+                }
+            }
         }
     }
 }

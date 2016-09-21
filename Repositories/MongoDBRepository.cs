@@ -65,6 +65,7 @@ namespace HandsOnApi.Repositories
 
             return result.IsAcknowledged;
         }
+        
         protected IMongoCollection<TDocument> Collection
         {
             get { return this._collection; }
