@@ -14,7 +14,7 @@ namespace HandsOnApi.Models
 
         public IEnumerable<PhoneNumber> PhoneNumbers { get; set; }
 
-        public IEnumerable<Email> Emails { get; set; }
+        public Email Email { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}")]
         public DateTime BirthDate { get; set; }
