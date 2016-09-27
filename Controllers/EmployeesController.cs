@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Mvc;
@@ -33,9 +34,14 @@ namespace HandsOnApi.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody]Employee value)
         {
-            if (!ModelState.IsValid)
+            if (value.PhoneNumbers.Count() > 2)
             {
-                return this.BadRequest(ModelState);
+                this.ModelState.AddModelError("PhoneNumber", "Too many phone numbers");
+            }
+
+            if (!this.ModelState.IsValid)
+            {
+                return this.BadRequest(this.ModelState);
             }
             else
             {
@@ -48,9 +54,14 @@ namespace HandsOnApi.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> Put(string id, [FromBody]Employee value)
         {
-            if (!ModelState.IsValid)
+            if (value.PhoneNumbers.Count() > 2)
             {
-                return this.BadRequest(ModelState);
+                this.ModelState.AddModelError("PhoneNumber", "Too many phone numbers");
+            }
+
+            if (!this.ModelState.IsValid)
+            {
+                return this.BadRequest(this.ModelState);
             }
             else
             {
@@ -69,9 +80,9 @@ namespace HandsOnApi.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(string id)
         {
-            if (!ModelState.IsValid)
+            if (!this.ModelState.IsValid)
             {
-                return this.BadRequest(ModelState);
+                return this.BadRequest(this.ModelState);
             }
             else
             {
