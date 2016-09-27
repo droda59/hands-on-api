@@ -13,6 +13,7 @@ namespace HandsOnApi.Models
 
         public IEnumerable<PhoneNumber> PhoneNumbers { get; set; }
 
-        public Email Email { get; set; }
+        [EmailAddress]
+        public string Email { get; set; }
     }
 }
